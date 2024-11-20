@@ -1,0 +1,11 @@
+11a12,13
+> 
+>         System.out.println("Fin du programme.");
+14c16
+< 266
+---
+> 316
+16c18
+< 10
+---
+> 12
