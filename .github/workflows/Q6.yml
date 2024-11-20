@@ -35,7 +35,7 @@ jobs:
 
       - name: Compare with previous Q6 archive
         run: |
-          LAST_ARCHIVE=$(ls Q6_archive_*.txt | sort | tail -n 2 | head -n 1)
+          LAST_ARCHIVE=$(ls Q6_archive_*.txt 2>/dev/null | sort | tail -n 2 | head -n 1)
           NEW_ARCHIVE="Q6_archive_$DATE.txt"
           if [ -f "$LAST_ARCHIVE" ]; then
             diff $LAST_ARCHIVE $NEW_ARCHIVE > Q6_différences.txt
