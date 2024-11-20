@@ -23,6 +23,15 @@ jobs:
           echo "" >> $ARCHIVE_FILE
           cat Q5.java >> $ARCHIVE_FILE
 
+      - name: Verify file creation and commit
+        run: |
+          if [ -f "Q5_archive_$DATE.txt" ]; then
+            echo "Fichier Q5_archive_$DATE.txt créé avec succès."
+          else
+            echo "Le fichier Q5_archive_$DATE.txt n'a pas été créé. Le workflow échoue."
+            exit 1
+          fi
+
       - name: Configure Git
         run: |
           git config --global user.name "zbilamouette"
