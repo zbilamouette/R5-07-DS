@@ -32,11 +32,19 @@ jobs:
           echo "Nombre de lignes:" >> $ARCHIVE_FILE
           wc -l < Q6.java >> $ARCHIVE_FILE
 
+      - name: List existing Q6 archive files
+        run: |
+          echo "Listing all Q6 archive files:"
+          ls Q6_archive_*.txt
+
       - name: Compare with previous Q6 archive
         run: |
           LAST_ARCHIVE=$(ls Q6_archive_*.txt 2>/dev/null | sort | tail -n 2 | head -n 1)
           NEW_ARCHIVE="Q6_archive_$DATE.txt"
+          echo "Last archive: $LAST_ARCHIVE"
+          echo "New archive: $NEW_ARCHIVE"
           if [ -f "$LAST_ARCHIVE" ]; then
+            echo "Comparing $LAST_ARCHIVE with $NEW_ARCHIVE"
             diff $LAST_ARCHIVE $NEW_ARCHIVE > Q6_différences.txt
           else
             echo "Aucun fichier précédent à comparer." > Q6_différences.txt
