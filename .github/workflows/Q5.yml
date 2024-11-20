@@ -3,24 +3,27 @@ name: Archive Q5.java
 on:
   push:
     branches:
-      - main
+      - main # declenchement au push sur la branch main
 
-permissions: write-all
+permissions: write-all # permission d'ecrire dans le repo
 
 jobs:
   archive-java:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest # self-hosted
+    
     steps:
+      # verif code
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # get date et heure
       - name: Get current date and time
         id: datetime
         run: |
           DATE=$(date '+%d-%m-%Y-%H%M%S')
           echo "DATE=$DATE" >> $GITHUB_ENV
 
+      # Cree fichier d'archive
       - name: Create Q5_archive_date.txt
         run: |
           ARCHIVE_FILE="Q5_archive_$DATE.txt"
@@ -33,6 +36,7 @@ jobs:
           wc -l < Q5.java >> $ARCHIVE_FILE
           echo "Fichier créé : $ARCHIVE_FILE"
 
+      # verif si le fichier existe
       - name: Verify if the archive file exists
         run: |
           echo "Vérification de l'existence du fichier $ARCHIVE_FILE"
