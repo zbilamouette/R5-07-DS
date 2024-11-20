@@ -1,11 +1,12 @@
 11a12,13
 > 
 >         System.out.println("Fin du programme.");
-14c16
+14c16,17
 < 266
 ---
+> Nombre de caractères:
 > 316
-16c18
+16c19
 < 10
 ---
 > 12
