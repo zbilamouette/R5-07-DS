@@ -1,0 +1,41 @@
+name: Archive Q4.java
+
+on:
+  push:
+    branches:
+      - main # déclenchement sur la branche main
+
+permissions: write-all # permission d'ecrire dans le repo
+
+jobs:
+  archive-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Vérification du code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+    
+        # Étape 3 : Créer le fichier d'archive
+      - name: Create txt archive file with date
+        run: |
+          DATE=$(date '+%d-%m-%Y')
+          ARCHIVE_FILE="Q4_archive_$DATE.txt"
+          echo "Nom: Florian Janot" > $ARCHIVE_FILE
+          echo "" >> $ARCHIVE_FILE
+          cat Q4.java >> $ARCHIVE_FILE
+
+      # Étape 3 : Configurer Git
+      - name: Configure Git
+        run: |
+          git config --global user.name "zbilamouette"
+          git config --global user.email "florian.janot@etu.univ-lehavre.fr"
+
+      # Étape 4 : Commit et push
+      - name: Commit et push le fichier
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add Q3_archive_java.txt
+          git commit -m "Ajout de l'archive de Q4.java" || echo "Rien à commit"
+          git push origin main || echo "Le push a échoué"
