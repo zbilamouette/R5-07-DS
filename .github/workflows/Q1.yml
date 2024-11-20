@@ -10,7 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
+          # verif du code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+    
       - name: Copy README.md to Q1_archive_README.md
         run: ls \
           cp README.md Q1_archive_README.md
