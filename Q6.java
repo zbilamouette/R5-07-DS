@@ -7,5 +7,7 @@ public class Q6 {
             for (int j = i; j <= n; j++) System.out.print("x");
             System.out.println();
         }
+
+        System.out.println("Fin du programme.");
     }
 }
