@@ -9,14 +9,14 @@ permissions: write-all # permission d'ecrire dans le repo
 
 jobs:
   archive-readme:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # self-hosted
 
     steps:
-      # Étape 1 : Vérification du code
+      # vérification du code
       - name: Checkout repository
         uses: actions/checkout@v3
     
-        # Étape 3 : Créer le fichier Q3_archive_java.txt
+        # créer le fichier Q3_archive_java.txt
       - name: Create Q3_archive_java.txt
         run: |
           echo "Nom : JANOT" > Q3_archive_java.txt
@@ -26,13 +26,13 @@ jobs:
           echo "" >> Q3_archive_java.txt
           cat Q3.java >> Q3_archive_java.txt
 
-      # Étape 3 : Configurer Git
+      # configurer Git
       - name: Configure Git
         run: |
           git config --global user.name "zbilamouette"
           git config --global user.email "florian.janot@etu.univ-lehavre.fr"
 
-      # Étape 4 : Commit et push
+      # commit et push
       - name: Commit et push le fichier
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
