@@ -37,15 +37,22 @@ jobs:
           echo "Listing all Q6 archive files:"
           ls Q6_archive_*.txt
 
+      - name: Show contents of the last and new archive files
+        run: |
+          echo "Last archive content:"
+          cat Q6_archive_20-11-2024-132938.txt || echo "No such file"
+          echo "New archive content:"
+          cat Q6_archive_20-11-2024-134651.txt || echo "No such file"
+
       - name: Compare with previous Q6 archive
         run: |
-          LAST_ARCHIVE=$(ls Q6_archive_*.txt 2>/dev/null | sort | tail -n 2 | head -n 1)
+          LAST_ARCHIVE="Q6_archive_20-11-2024-132938.txt"
           NEW_ARCHIVE="Q6_archive_$DATE.txt"
           echo "Last archive: $LAST_ARCHIVE"
           echo "New archive: $NEW_ARCHIVE"
           if [ -f "$LAST_ARCHIVE" ]; then
             echo "Comparing $LAST_ARCHIVE with $NEW_ARCHIVE"
-            diff $LAST_ARCHIVE $NEW_ARCHIVE > Q6_différences.txt
+            diff $LAST_ARCHIVE $NEW_ARCHIVE > Q6_différences.txt || true
           else
             echo "Aucun fichier précédent à comparer." > Q6_différences.txt
           fi
