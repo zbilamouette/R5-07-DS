@@ -15,8 +15,7 @@ jobs:
         uses: actions/checkout@v3
     
       - name: Copy README.md to Q1_archive_README.md
-        run: ls \
-          cp README.md Q1_archive_README.md
+        run: cp README.md Q1_archive_README.md
 
       - name: Configure git
         run: |
