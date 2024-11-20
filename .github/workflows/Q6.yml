@@ -28,7 +28,6 @@ jobs:
           echo "" >> $ARCHIVE_FILE
           cat Q6.java >> $ARCHIVE_FILE
           echo "" >> $ARCHIVE_FILE
-          echo "Nombre de caracteres:" >> $ARCHIVE_FILE
           wc -c < Q6.java >> $ARCHIVE_FILE
           echo "Nombre de lignes:" >> $ARCHIVE_FILE
           wc -l < Q6.java >> $ARCHIVE_FILE
