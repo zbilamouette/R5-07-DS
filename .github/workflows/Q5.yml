@@ -15,22 +15,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create archive file with date
+      - name: Get current date and time
+        id: datetime
         run: |
-          DATE=$(date '+%d-%m-%Y')
+          DATE=$(date '+%d-%m-%Y-%H%M%S')
+          echo "DATE=$DATE" >> $GITHUB_ENV
+
+      - name: Create Q5_archive_date.txt
+        run: |
           ARCHIVE_FILE="Q5_archive_$DATE.txt"
           echo "Nom: Florian Janot" > $ARCHIVE_FILE
           echo "" >> $ARCHIVE_FILE
           cat Q5.java >> $ARCHIVE_FILE
+          echo "" >> $ARCHIVE_FILE
+          wc -c < Q5.java >> $ARCHIVE_FILE
+          echo "Nombre de lignes:" >> $ARCHIVE_FILE
+          wc -l < Q5.java >> $ARCHIVE_FILE
+          echo "Fichier créé : $ARCHIVE_FILE"
 
-      - name: Verify file creation and commit
+      - name: Verify if the archive file exists
         run: |
-          if [ -f "Q5_archive_$DATE.txt" ]; then
-            echo "Fichier Q5_archive_$DATE.txt créé avec succès."
+          echo "Vérification de l'existence du fichier $ARCHIVE_FILE"
+          if [ -f "$ARCHIVE_FILE" ]; then
+            echo "Le fichier $ARCHIVE_FILE a été créé avec succès."
           else
-            echo "Le fichier Q5_archive_$DATE.txt n'a pas été créé. Le workflow échoue."
+            echo "Le fichier $ARCHIVE_FILE n'a pas été créé."
             exit 1
           fi
+
+      - name: List all Q5 archive files
+        run: |
+          echo "Liste des fichiers d'archive Q5 :"
+          ls Q5_archive_*.txt
 
       - name: Configure Git
         run: |
@@ -42,5 +58,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add Q5_archive_*.txt
-          git commit -m "Ajout de l'archive Q5.java"
+          git commit -m "Ajout du fichier d'archive Q5"
           git push
