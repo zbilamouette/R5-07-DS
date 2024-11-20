@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main # déclenchement sur la branche main
+permissions: read-all, write-all
 
 jobs:
   archive-readme:
