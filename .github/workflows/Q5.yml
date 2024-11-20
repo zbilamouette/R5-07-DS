@@ -1,0 +1,35 @@
+name: Archive Q5.java
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  archive-java:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create archive file with date
+        run: |
+          DATE=$(date '+%d-%m-%Y')
+          ARCHIVE_FILE="Q5_archive_$DATE.txt"
+          echo "Nom: Florian Janot" > $ARCHIVE_FILE
+          echo "" >> $ARCHIVE_FILE
+          cat Q5.java >> $ARCHIVE_FILE
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "zbilamouette"
+          git config --global user.email "florian.janot@etu.univ-lehavre.fr"
+
+      - name: Commit and push archive file
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add Q5_archive_*.txt
+          git commit -m "Ajout de l'archive Q5.java"
+          git push
